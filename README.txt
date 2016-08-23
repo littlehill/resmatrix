@@ -1,5 +1,5 @@
 This should provide a way to generate equations for NxM resistor networks. 
-Originally developed for purposes of FEE eForce Prague formula student project. (CTU Prague)
+Originally developed for purposes of FEE eForce Prague formula student project. (CTU Prague, http://eforce.cvut.cz/en/info/)
 Because some nutshot forgot to connect the resistor network diferently we would originally redo all boards for temperature measurement. 
 However we found out we have enough measurement data to calculate each resistor in the network. 
 This program should be able to do parametric star-mesh transformations & generate equations which then need more adjustment in maltab or any other sw for equation solving. 
