@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<!-- saved from url=(0061)http://kirr.homeunix.org/electronics/resistor-network-solver/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="author" content="Kirill Kryukov">
+<meta name="keywords" content="resistor,network,solver,serial,parallel,star,mesh,wye,delta,transform,equivalent,resistance,calculator">
+<meta name="abstract" content="Finds the equivalent resistance of any resistor network.">
+<meta name="description" content="Calculates the equivalent resistance of an arbitrarily complex 2-terminal resistor network.">
+<title>Resistor Network Solver</title>
+<link rel="shortcut icon" href="http://kirr.homeunix.org/electronics/resistor-network-solver/images/icon.png">
+<style>
+body { background-color: #ffffff; font-family: sans-serif; }
+div.text { width: 50rem; max-width: 90%; margin: 0 auto 0 auto; text-align: left; }
+div.text h1 { font-family: sans-serif; font-weight: bold; font-size: 2.3rem; margin: 0.2em 0 0 0; text-align: center; letter-spacing: 0.05em; color: #4693cb; }
+div.text h1 a { text-decoration: none; color: #4693cb; }
+div.text h1 a:hover { text-decoration: underline; }
+div.text h2 { text-align: center; margin: 0 0 0.2rem 0; color: #2d4791; font-size: 1.7rem; }
+div.text h3 { margin: 0.8rem 0 0.1rem 0; color: #2d4791; font-size: 1.25rem; }
+div.text h4 { margin: 0.4rem 0 0 0; color: #2d4791; font-size: 1rem; font-weight: bold; }
+div.text p { margin: 0.4rem 0 0 0; }
+div.text ul { margin: 0.4rem 0 0 0; }
+div.warn { color: #6d1c1c; }
+form { color: #046196; line-height: 170%; }
+form input { font-family: monospace; font-size: 1.1rem; height: 1.5rem; border-style: inset; border-width: 0.01rem; border-radius: 0.4rem; }
+table { border-spacing: 0; }
+td { padding: 0; }
+a { text-decoration: none; }
+a:hover { text-decoration: underline; }
+.footer { color: #A0A0A0; }
+.footer a { color: #A0A0A0; }
+span.new_r { color: #cd7d00; }
+span.n  { color: #3c6bd7; }
+img.centered { display: block; margin-left: auto; margin-right: auto; }
+</style>
+<script type="text/javascript">
+function showhide(a) { var e = document.getElementById(a); e.style.display = (e.style.display == 'block') ? 'none' : 'block'; }
+</script>
+</head>
+<body>
+<div class="text">
+<h1><a href="http://kirr.homeunix.org/electronics/resistor-network-solver/">Resistor Network Solver</a></h1>
+<div style="margin-left: auto; margin-right: auto; text-align: center;">
+<a href="http://kirr.homeunix.org/electronics/resistor-network-solver/?page=about">About</a> | <a href="http://kirr.homeunix.org/electronics/resistor-network-solver/?page=help">Help</a> | <a href="http://kirr.homeunix.org/electronics/resistor-network-solver/?page=examples">Examples</a>
+</div>
+
+<p>This tool computes the equivalent resistance of a 2-terminal resistor network.
+If the network contains more than 2 terminals, this tool simplifies the network by removing all non-terminal nodes.
+</p>
+
+<form method="post">
+<div style="border: 0.01rem solid #78c5f1; border-radius: 0.9rem; margin: 0.9rem 0 0 0; padding: 0.7rem 0.9rem 0.5rem 0.9rem; background-color: #fafafa;">
+
+<div style="margin: 0; padding: 0; color: #2f5fa7;">
+<b>Network</b> (space-separated nodes and resistances):<br>
+<textarea name="network" style="resize: vertical; width: 100%; color: #2f5fa7; border-color: #2f5fa7;
+font-family: monospace; font-size: 1.1rem; height: 8rem; border-style: inset; border-width: 0.01rem; border-radius: 0.4rem; line-height: 140%;"></textarea><br>
+</div>
+
+<div style="margin: 0.4rem 0 0 0; padding: 0;">
+<b>Terminal nodes</b> (space-separated):<br>
+<textarea name="terminals" style="resize: vertical; width: 100%; color: #2f5fa7; border-color: #2f5fa7;
+font-family: monospace; font-size: 1.1rem; height: 1.8rem; border-style: inset; border-width: 0.01rem; border-radius: 0.4rem; line-height: 140%;"></textarea><br>
+</div>
+
+<div style="margin-top: 0.4rem 0 0 0; padding: 0;">
+<table style="width: 100%"><tbody><tr>
+<td style="padding: 0 0.4rem 0 0.4rem;"><input type="checkbox" name="explain" value="1" style="vertical-align: middle;">
+ Explain each step</td>
+<td style="padding: 0 0.4rem 0 0.4rem;"><input type="checkbox" name="visual" value="1" style="vertical-align: middle;">
+ Visualize the network</td>
+</tr></tbody></table>
+</div>
+
+</div>
+
+<p style="text-align: center; margin: 0; padding: 0;">
+<input value="Solve" style="color: white; height: 1.8rem;
+ margin: 0.4rem 0 0 0; background-color: #4693cb; border-radius: 0.9rem; font-family: serif; font-size: 1.25rem;" type="submit">
+</p>
+
+<input type="hidden" name="solve" value="1">
+</form>
+
+<table style="margin-top: 1.2rem; width: 100%;"><tbody><tr>
+<td class="footer" style="text-align: center;">© 2016 <a href="http://kirill-kryukov.com/kirr/">Kirill Kryukov</a><br>Available under the <a href="http://creativecommons.org/licenses/by/4.0/">CC BY 4.0 License</a></td>
+</tr></tbody></table>
+</div>
+</body></html>
