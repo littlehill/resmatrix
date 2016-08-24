@@ -1,46 +1,5 @@
 #include "network.hpp"
 
-void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysize) {
-	register unsigned int fx, fy;
-	Impedance *ztemp;
-	
-	string designator, tempdes2, zname;
-	Junction * TJ1;
-	Junction * TJ2;
-	
-	for (fx=0;fx<xsize;fx+=1) {
-		designator = "Sig" + std::to_string(fx);
-		cout << "adding Junction: " + designator + "\n";
-		matrix->addJunction(designator);	
-		designator.clear();
-	}
-	for (fy=0;fy<ysize;fy+=1) {
-		tempdes2 = "Gnd" + std::to_string(fy);
-		cout << "adding Junction: " + tempdes2 + "\n";
-		matrix->addJunction(tempdes2);		
-		designator.clear();		
-	}
-	
-	for (fy=0;fy<ysize;fy+=1) {
-		designator = "Gnd" + std::to_string(fy);
-		for (fx=0;fx<xsize;fx+=1) {
-			tempdes2 = "Sig" + std::to_string(fx);			
-			TJ1 = matrix->getJunction(designator);
-			TJ2 = matrix->getJunction(tempdes2);
-			tempdes2.clear();
-			zname.clear();
-			zname = "R" + std::to_string(fy*6+fx);
-			
-			ztemp = new Impedance(TJ1,TJ2,new Resistor(zname,3000.0));
-			matrix->addImpedance(ztemp);
-			
-			cout << "Added impedance between junctions: " + TJ1->getName() + " & " + TJ2->getName() + " //res-designator: " + zname + "\n";
-		}
-		designator.clear();		
-	}
-}
-
-
 /*Class Network*/
 Network::Network(){
 	
@@ -103,11 +62,51 @@ std::stringstream * Network::printAllContent() {
 	fmax = this->imps.size();
 	for (fa=0;fa<fmax;fa+=1) {
 		tmpz = this->imps.at(fa);
-		--; //*output << ".from:" + tmpj->getName() + " \tUID:" + std::to_string(tmpj->GetUID()) + " \tcount:J" + std::to_string(fa) + "\n";	
+		*output << ".impedance: \t" + tmpz->GetString() ; //"\n";	
 	}
-	*/
 	
 	return output;
 }
 /*Network End*/
+
+void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysize) {
+	register unsigned int fx, fy;
+	Impedance *ztemp;
+	
+	string designator, tempdes2, zname;
+	Junction * TJ1;
+	Junction * TJ2;
+	
+	for (fx=0;fx<xsize;fx+=1) {
+		designator = "Sig" + std::to_string(fx);
+		cout << "adding Junction: " + designator + "\n";
+		matrix->addJunction(designator);	
+		designator.clear();
+	}
+	for (fy=0;fy<ysize;fy+=1) {
+		tempdes2 = "Gnd" + std::to_string(fy);
+		cout << "adding Junction: " + tempdes2 + "\n";
+		matrix->addJunction(tempdes2);		
+		designator.clear();		
+	}
+	
+	for (fy=0;fy<ysize;fy+=1) {
+		designator = "Gnd" + std::to_string(fy);
+		for (fx=0;fx<xsize;fx+=1) {
+			tempdes2 = "Sig" + std::to_string(fx);			
+			TJ1 = matrix->getJunction(designator);
+			TJ2 = matrix->getJunction(tempdes2);
+			tempdes2.clear();
+			zname.clear();
+			zname = "R" + std::to_string(fy*6+fx);
+			
+			ztemp = new Impedance(TJ1,TJ2,new Resistor(zname,3000.0));
+			matrix->addImpedance(ztemp);
+			
+			cout << "Added impedance between junctions: " + TJ1->getName() + " & " + TJ2->getName() + " //res-designator: " + zname + "\n";
+		}
+		designator.clear();		
+	}
+}
+
 

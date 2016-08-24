@@ -125,7 +125,12 @@ Impedance::Impedance (Junction * A, Junction * B, Connection *inZ): UID(globalID
 ulong Impedance::GetUID() {
 	return UID;
 }
-
+Junction * Impedance::getFrom() {
+	return this->from;
+}
+Junction * Impedance::getTo() {
+	return this->to;
+}
 double Impedance::GetValue() {
 	return Z->GetValue();
 }	

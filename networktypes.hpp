@@ -90,6 +90,8 @@ class  Impedance {
 		ulong GetUID();
 		double GetValue();
 		string GetString();
+		Junction * getFrom();
+		Junction * getTo();
 };
 
 #endif
