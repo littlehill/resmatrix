@@ -39,8 +39,7 @@ Impedance * Network::getImpedance(ulong UID) {
 	for (int fa=0;fa<imps.size();fa+=1) {
 		data = imps[fa];
 		if (UID == data->GetUID()) return data;
-	}
-	
+	}	
 	return NULL;
 }
 
@@ -80,9 +79,34 @@ bool Network::existsInNet(Junction *what) {
 	if (status>=0) return true;
 	else return false;
 }
-std::vector<Impedance*> *getConnectedList(Junction *centerJ) {
+std::vector<Impedance*> *Network::getConnectedList(Junction *centerJ) {
 	std::vector<Impedance*> *output = new std::vector<Impedance*>();
-	return output;
+	Impedance * tmpi;
+	Junction * tmpj;
+	for (int fa=0;fa<this->imps.size();fa+=1) {
+		tmpi = this->imps[fa];
+		
+		tmpj = tmpi->getFrom();
+		if (tmpj->GetUID() == centerJ->GetUID()) {
+			output->push_back(tmpi);
+			continue;	
+		}
+		tmpj = tmpi->getTo();
+		if (tmpj->GetUID() == centerJ->GetUID())  {
+			output->push_back(tmpi);
+			continue;	
+		}
+	}
+	
+	if (output->size() > 0) {
+		return output;
+	}
+	else {
+		//TODO add vector destructor
+		cerr << "Error/warning: no Impedances returned in GetConnectedList" << endl;
+		return NULL;
+	}
+	
 }
 	
 void Network::addJunction(string name) {
