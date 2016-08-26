@@ -46,8 +46,7 @@ std::stringstream * Network::printAllContent() {
 	
 	std::stringstream * output;
 	output = new std::stringstream();
-	
-	
+		
 	*output	<< "---- Matrix output ----\n"
 			<< "listing all Junctions: \n";
 	fmax = this->junctions.size();
@@ -55,7 +54,6 @@ std::stringstream * Network::printAllContent() {
 		tmpj = this->junctions.at(fa);
 		*output << ".name:" + tmpj->getName() + " \tUID:" + std::to_string(tmpj->GetUID()) + " \tcount:J" + std::to_string(fa) + "\n";	
 	}
-	
 	
 	*output	<< "---- Matrix output ----\n"
 			<< "listing all Impedances: \n";
@@ -109,4 +107,6 @@ void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysi
 	}
 }
 
-
+bool starMeshTransformation(Network *matrix, Junction *jToRemove) {
+	
+}

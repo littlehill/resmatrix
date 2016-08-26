@@ -44,8 +44,6 @@ int main(int argc, char** argv) {
 	
 	/* TODO (#1#): Select Junction to remove, do the 
 	               transformation on this junction; */
-	---; //
-	
 	
 	
 	return 0;

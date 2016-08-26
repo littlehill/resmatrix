@@ -30,6 +30,7 @@ class Network {
 };
 
 void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysize);
+bool starMeshTransformation(Network *matrix, Junction *jToRemove);
 
 #endif
 
