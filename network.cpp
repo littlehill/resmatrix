@@ -68,9 +68,21 @@ bool Network::existsInNet(Connection *what) {
 	}
 	status = this->getIposition(what->GetUID());
 	if (status>=0) return true;
+	else return false;
+}
+bool Network::existsInNet(Junction *what) {
+	long int status=0;
+	if (what==NULL) {
+		cerr << "Error: exist function called on NULL Junction *;" << endl;
+		return false;
+	}
 	status = this->getJposition(what->GetUID());
 	if (status>=0) return true;
-	return false;
+	else return false;
+}
+std::vector<Impedance*> *getConnectedList(Junction *centerJ) {
+	std::vector<Impedance*> *output = new std::vector<Impedance*>();
+	return output;
 }
 	
 void Network::addJunction(string name) {
@@ -193,10 +205,15 @@ void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysi
 bool starMeshTransformation(Network *srcNet, Junction *jToRemove) {
 	Network tempNet(srcNet);
 
-	if (!tempNet.existsInNet(jToremove)) {
+	std::vector<Impedance*> star;
+
+	if (!tempNet.existsInNet(jToRemove)) {
 		cerr << "ERROR: selected junction for removal has not been found in Network." << endl;
 		return false;
 	}
+	
+	
+	
 	
 	
 }

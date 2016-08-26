@@ -24,6 +24,8 @@ class Network {
 	Junction * getJunction(ulong UID);
 	Impedance * getImpedance(ulong jUID);
 	bool existsInNet(Connection *what);
+	bool existsInNet(Junction *what);
+	std::vector<Impedance*> *getConnectedList(Junction *centerJ);
 	
 	long int getJposition(ulong UID);
 	long int getIposition(ulong UID);
