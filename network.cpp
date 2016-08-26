@@ -4,6 +4,10 @@
 Network::Network(){
 	
 }
+Network::Network(Network *cloneme) {
+	this->junctions	= cloneme->junctions;
+	this->imps		= cloneme->imps;
+}
 ulong Network::getJunctionUID(string name) {
 	Junction * data = getJunction(name);
 	if (data!=NULL) 
@@ -21,15 +25,54 @@ Junction * Network::getJunction(string name) {
 	
 	return NULL;
 }
-Junction * Network::getJunction(ulong jUID) {
+Junction * Network::getJunction(ulong UID) {
 	Junction * data;
 	for (int fa=0;fa<junctions.size();fa+=1) {
 		data = junctions[fa];
-		if (jUID == data->GetUID()) return data;
+		if (UID == data->GetUID()) return data;
 	}
 	
 	return NULL;
 }
+Impedance * Network::getImpedance(ulong UID) {
+	Impedance * data;
+	for (int fa=0;fa<imps.size();fa+=1) {
+		data = imps[fa];
+		if (UID == data->GetUID()) return data;
+	}
+	
+	return NULL;
+}
+
+long int Network::getJposition(ulong UID) {
+	Junction * data;
+	for (int fa=0;fa<junctions.size();fa+=1) {
+		data = junctions[fa];
+		if (UID == data->GetUID()) return fa;
+	}
+	return -1;
+}
+long int Network::getIposition(ulong UID) {
+	Impedance * data;
+	for (int fa=0;fa<imps.size();fa+=1) {
+		data = imps[fa];
+		if (UID == data->GetUID()) return fa;
+	}
+	return -1;
+}
+bool Network::existsInNet(Connection *what) {
+	long int status=0;
+	if (what==NULL) {
+		cerr << "Error: exist function called on NULL Connection *;" << endl;
+		return false;
+	}
+	status = this->getIposition(what->GetUID());
+	if (status>=0) return true;
+	status = this->getJposition(what->GetUID());
+	if (status>=0) return true;
+	return false;
+}
+	
 void Network::addJunction(string name) {
 	junctions.push_back(new Junction(name));
 }
@@ -64,6 +107,46 @@ std::stringstream * Network::printAllContent() {
 	}
 	
 	return output;
+}
+bool Network::removeJunction(ulong UID) {
+	long int position = this->getJposition(UID);
+	if (position>=0) {
+		this->junctions.erase(junctions.begin()+position);
+		return true;
+	}
+	else {
+		cerr << "Error: Attempt to remove not-existing junction;\n";
+		return false;
+	}
+}
+bool Network::removeImpedance(ulong UID) {
+	long int position = this->getIposition(UID);
+	if (position>=0) {
+		this->imps.erase(imps.begin()+position);
+		return true;
+	}
+	else {
+		cerr << "Error: Attempt to remove not-existing impedance;\n";
+		return false;
+	}
+}
+bool Network::removeJunction(Junction *soonToBeDeadJunction) {
+	if (soonToBeDeadJunction!=NULL) {
+		return this->removeJunction(soonToBeDeadJunction->GetUID()) ;
+	}
+	else {
+		cerr << "Error: attempt to remove NULL junction;" << endl;
+		return false;
+	}
+}
+bool Network::removeImpedance(Impedance *soonToBeDeadImpedance) {
+	if (soonToBeDeadImpedance!=NULL) {
+		return this->removeImpedance(soonToBeDeadImpedance->GetUID()) ;
+	}
+	else {
+		cerr << "Error: attempt to remove NULL impedance;" << endl;
+		return false;
+	}
 }
 /*Network End*/
 
@@ -107,6 +190,13 @@ void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysi
 	}
 }
 
-bool starMeshTransformation(Network *matrix, Junction *jToRemove) {
+bool starMeshTransformation(Network *srcNet, Junction *jToRemove) {
+	Network tempNet(srcNet);
+
+	if (!tempNet.existsInNet(jToremove)) {
+		cerr << "ERROR: selected junction for removal has not been found in Network." << endl;
+		return false;
+	}
+	
 	
 }

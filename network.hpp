@@ -12,21 +12,31 @@
 #include "networktypes.hpp"
 
 class Network {
+	
+	public:
 	std::vector<Junction*> junctions;
 	std::vector<Impedance*> imps;
 	
-	public:
 	Network();
+	Network(Network *cloneme);
 	ulong getJunctionUID(string name);
 	Junction * getJunction(string name);
-	Junction * getJunction(ulong jUID);
+	Junction * getJunction(ulong UID);
+	Impedance * getImpedance(ulong jUID);
+	bool existsInNet(Connection *what);
+	
+	long int getJposition(ulong UID);
+	long int getIposition(ulong UID);
 	
 	void addJunction(string name);
 	void addJunction(Junction * jnc);
 	void addImpedance(Impedance * inz);
-	
+	bool removeJunction(ulong UID);
+	bool removeImpedance(ulong UID);
+	bool removeJunction(Junction *soonToBeDeadJunction);
+	bool removeImpedance(Impedance *soonToBeDeadImpedance);		
+		
 	std::stringstream * printAllContent();
-	
 };
 
 void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysize);
