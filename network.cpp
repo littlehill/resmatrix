@@ -228,15 +228,19 @@ void insertResistorMatrix(Network * matrix, unsigned int xsize, unsigned int ysi
 
 bool starMeshTransformation(Network *srcNet, Junction *jToRemove) {
 	Network tempNet(srcNet);
-
-	std::vector<Impedance*> star;
+	std::vector<Impedance*> *star;
+	unsigned int fa;
 
 	if (!tempNet.existsInNet(jToRemove)) {
 		cerr << "ERROR: selected junction for removal has not been found in Network." << endl;
 		return false;
 	}
 	
+	star = tempNet.getConnectedList(jToRemove);
 	
+	for (fa=0;fa<star->size();fa+=1) {
+		cout << "count:" << fa << "\tuid:" << (*star)[fa]->GetUID() << "\tname:" << (*star)[fa]->GetString() << endl;	
+	}
 	
 	
 	

@@ -5,8 +5,8 @@
 
 int main(int argc, char** argv) {
 	Network  skynet;
-	string inJunctionName, outJunctionName;
-	Junction *inJunction, *outJunction;
+	string inJunctionName, outJunctionName, rmJunctionName;
+	Junction *inJunction, *outJunction, *rmJunction;
 	
 	insertResistorMatrix(&skynet,6,6);
 	
@@ -44,7 +44,26 @@ int main(int argc, char** argv) {
 	
 	/* TODO (#1#): Select Junction to remove, do the 
 	               transformation on this junction; */
+	rmJunction = NULL;
+	while (rmJunction == NULL) {
+	cout	<<   "Please enter the Junction name for star-mesh transformation,\n(Junction to remove): ";
+		cin >> rmJunctionName;
+		rmJunction = skynet.getJunction(rmJunctionName);
+		if (rmJunction==NULL) 
+			cout << "Invalid Junction name, try again.\n";
+		else if (rmJunction->GetUID()==inJunction->GetUID()) {
+			cout << "You have selected this Junction for input. Please choose different one.\n";
+			rmJunction = NULL;
+			}
+		else if (rmJunction->GetUID()==outJunction->GetUID()) {
+			cout << "You have selected this Junction for output. Please choose different one.\n";
+			rmJunction = NULL;
+			}
+		else
+			cout << "You have selected star-mesh Junction: " + rmJunctionName + " \tUID=" + std::to_string(rmJunction->GetUID()) + "\n";
+	}
 	
+	starMeshTransformation(&skynet, rmJunction);
 	
 	return 0;
 }
